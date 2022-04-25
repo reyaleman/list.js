@@ -14,11 +14,18 @@ module.exports = function (list) {
       var is = list.items
       for (var i = 0, il = is.length; i < il; i++) {
         var item = is[i]
-        if (filterFunction(item)) {
-          item.filtered = true
+        
+        var filtered = true
+        if (Object.prototype.toString.call(filterFunction) === '[object Array]') {
+          var f = 0
+          while (f < filterFunction.length && filtered) {
+            filtered = filterFunction[f++](item)
+          }
         } else {
-          item.filtered = false
+          filtered = filterFunction(item)
         }
+        
+        item.filtered = filtered
       }
     }
     list.update()
