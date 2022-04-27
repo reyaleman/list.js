@@ -19,7 +19,8 @@ module.exports = function (list) {
         if (Object.prototype.toString.call(filterFunction) === '[object Array]') {
           var f = 0
           while (f < filterFunction.length && filtered) {
-            filtered = filterFunction[f++](item)
+            filtered = filterFunction[f](item)
+            f++
           }
         } else {
           filtered = filterFunction(item)
